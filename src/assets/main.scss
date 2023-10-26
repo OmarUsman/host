@@ -1,0 +1,82 @@
+$primary: var(--bs-primary);
+
+$secondary: var(--bs-secondary);
+
+$dark: var(--bs-dark);
+
+$light: var(--bs-light);
+
+// Small tablets and large smartphones (landscape view)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+// Medium devices
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+// Large devices
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+
+// Extra large devices
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+
+// Custom devices
+@mixin rwd($screen) {
+    @media (min-width: $screen+"px") {
+        @content;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-kerning: auto;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+}
+
+.section {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+}
+
+.status-circle {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}

@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-kerning: auto;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.section {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+
+.status-circle {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}/*# sourceMappingURL=main.css.map */
