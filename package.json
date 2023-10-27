@@ -29,7 +29,10 @@
 		"electron": "27.0.2"
 	},
 	"dependencies": {
+		"cjstoesm": "^2.1.2",
 		"electron-squirrel-startup": "^1.0.0",
+		"pg": "^8.11.3",
+		"pg-hstore": "^2.3.4",
 		"sequelize": "^6.33.0",
 		"sqlite3": "^5.1.6",
 		"vue": "^3.3.7"

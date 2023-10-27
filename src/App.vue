@@ -28,7 +28,7 @@
 								<button class="btn btn-warning me-2">
 									<i class="bi bi-pen"></i>
 								</button>
-								<button class="btn btn-danger" @click="handleDeleteDomain()">
+								<button class="btn btn-danger">
 									<i class="bi bi-trash"></i>
 								</button>
 							</td>
@@ -42,7 +42,7 @@
 	<div class="modal" tabindex="-1" id="addDomainModal">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<form>
+				<form method="post" action="#">
 					<div class="modal-header">
 						<h5 class="modal-title">Add Domain</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -50,16 +50,16 @@
 					<div class="modal-body">
 						<div class="mb-3">
 							<label class="form-label">Domain Name</label>
-							<input type="text" class="form-control" name="domainName" placeholder="example.local" />
+							<input v-model="name" type="text" class="form-control" name="domainName" placeholder="example.local" />
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Points To</label>
-							<input type="text" class="form-control" name="domainPointsTo" placeholder="localhost:8000" />
+							<input v-model="pointsTo" type="text" class="form-control" name="domainPointsTo" placeholder="localhost:8000" />
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="submit" class="btn btn-primary">Add</button>
+						<button type="button" class="btn btn-primary" @click="handleCreateDomain()">Add</button>
 					</div>
 				</form>
 			</div>
@@ -68,7 +68,12 @@
 </template>
 
 <script setup>
-function handleDeleteDomain() {
-	window.api.setTitle("RIBS");
+import { ref } from "vue";
+
+let name = ref("");
+let pointsTo = ref("");
+
+function handleCreateDomain() {
+	window.api.createDomain(name.value, pointsTo.value);
 }
 </script>

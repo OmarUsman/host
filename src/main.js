@@ -1,11 +1,27 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
+const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
-
-
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
+
+export const dataBase = new Sequelize({
+  dialect: 'sqlite',
+  storage: './database.sqlite'
+});
+
+const Domain = dataBase.define('Domain', {
+  // Model attributes are defined here
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  pointsTo: {
+    type: DataTypes.STRING,
+    allowNull: false
+  }
+});
 
 const createWindow = () => {
   // Create the browser window.
@@ -34,13 +50,20 @@ const createWindow = () => {
 function handleCreateDomain(event, name, pointTo) {
   const webContents = event.sender
   const win = BrowserWindow.fromWebContents(webContents)
-  win.setTitle(title)
+  win.setTitle(name + pointTo)
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
+app.on('ready', async () => {
+  try {
+    await dataBase.authenticate();
+    await dataBase.sync({ force: true });
+    console.log('Connection has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
   ipcMain.on('createDomain', handleCreateDomain)
   createWindow()
 });

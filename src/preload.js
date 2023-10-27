@@ -1,5 +1,5 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('api', {
-    setTitle: (title) => ipcRenderer.send('set-title', title)
+    createDomain: (name, pointsTo) => ipcRenderer.send('createDomain', name, pointsTo)
 })
