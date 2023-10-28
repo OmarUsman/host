@@ -9,24 +9,21 @@ const pointsTo = ref("");
 
 onMounted(async () => {
 	domains.value = await window.api.getDomains();
-	console.log(domains);
 });
 
 async function handleCreateDomain() {
 	window.api.createDomain(name.value, pointsTo.value);
-
 	domains.value = await window.api.getDomains();
-	console.log(domains);
 }
 
 async function handleDeleteDomain(id) {
 	window.api.deleteDomain(id);
-
 	domains.value = await window.api.getDomains();
-	console.log(domains);
 }
 
-async function handleStartDomain(id) {
+async function handleStartDomain(event, id) {
+	event.target.classList.toggle("iconoir-play");
+	event.target.classList.toggle("iconoir-square");
 	window.api.startDomain(id);
 }
 </script>
@@ -59,14 +56,10 @@ async function handleStartDomain(id) {
 							<td class="align-middle">{{ domain.dataValues.pointsTo }}</td>
 							<td class="align-middle text-end">
 								<!-- <button class="btn btn-warning me-2">
-									<i class="bi bi-pen"></i>
+									<i class="iconoir-edit-pencil"></i>
 								</button> -->
-								<button class="btn btn-danger me-2" type="button" @click="handleDeleteDomain(domain.dataValues.id)">
-									<i class="bi bi-trash"></i>
-								</button>
-								<button class="btn btn-success" type="button" @click="handleStartDomain(domain.dataValues.id)">
-									<i class="bi bi-play-circle"></i>
-								</button>
+								<i class="btn iconoir-play fs-5 p-0 me-2" @click="handleStartDomain($event, domain.dataValues.id)"></i>
+								<i class="btn iconoir-bin fs-5 p-0 me-2" @click="handleDeleteDomain(domain.dataValues.id)"></i>
 							</td>
 						</tr>
 					</tbody>
