@@ -5,7 +5,7 @@ A tool for web developers
 # todo list
 
 -   ability to actually listen for mDNS queries and respond 💀
--   upgrade UI colors - custom bootstrap build
+    ~~- upgrade UI colors - custom bootstrap build~~ ✅
 -   better looking empty state
 -   edit functionality
 -   stop domain functionality

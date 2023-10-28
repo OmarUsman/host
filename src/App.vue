@@ -35,10 +35,10 @@ async function handleStartDomain(id) {
 	<div class="container p-5">
 		<div class="row">
 			<div class="col-6">
-				<h1 class="m-0">Domains</h1>
+				<h1 class="m-0 fw-bold">Domains</h1>
 			</div>
 			<div class="col-6 d-flex align-self-center justify-content-end">
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDomainModal">Add Domain</button>
+				<button type="button" class="btn btn-primary text-white" data-bs-toggle="modal" data-bs-target="#addDomainModal">Add Domain</button>
 			</div>
 		</div>
 		<div class="row mt-4">
