@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
+var mdns = require('multicast-dns')()
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -47,10 +49,36 @@ const createWindow = () => {
   mainWindow.setMenuBarVisibility(false)
 };
 
-function handleCreateDomain(event, name, pointTo) {
-  const webContents = event.sender
-  const win = BrowserWindow.fromWebContents(webContents)
-  win.setTitle(name + pointTo)
+async function handleCreateDomain(event, name, pointsTo) {
+  try {
+    const newDomain = await Domain.create({ name: name, pointsTo: pointsTo });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function handleGetDomains(event) {
+  try {
+    return await Domain.findAll();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function handleDeleteDomain(event, id) {
+  try {
+    await Domain.destroy({ where: { id: id } });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function handleStartDomain(event, id) {
+  try {
+
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // This method will be called when Electron has finished
@@ -59,12 +87,14 @@ function handleCreateDomain(event, name, pointTo) {
 app.on('ready', async () => {
   try {
     await dataBase.authenticate();
-    await dataBase.sync({ force: true });
+    await dataBase.sync();
     console.log('Connection has been established successfully.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
   ipcMain.on('createDomain', handleCreateDomain)
+  ipcMain.handle('getDomains', handleGetDomains)
+  ipcMain.on('deleteDomain', handleDeleteDomain)
   createWindow()
 });
 

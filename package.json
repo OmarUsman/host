@@ -31,6 +31,7 @@
 	"dependencies": {
 		"cjstoesm": "^2.1.2",
 		"electron-squirrel-startup": "^1.0.0",
+		"multicast-dns": "^7.2.5",
 		"pg": "^8.11.3",
 		"pg-hstore": "^2.3.4",
 		"sequelize": "^6.33.0",
