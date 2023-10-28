@@ -29,6 +29,8 @@
 		"electron": "27.0.2"
 	},
 	"dependencies": {
+		"bonjour": "^3.5.0",
+		"bonjour-service": "^1.1.1",
 		"cjstoesm": "^2.1.2",
 		"electron-squirrel-startup": "^1.0.0",
 		"multicast-dns": "^7.2.5",

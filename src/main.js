@@ -1,7 +1,8 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
-var mdns = require('multicast-dns')()
+const { spawn } = require('child_process');
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -75,7 +76,15 @@ async function handleDeleteDomain(event, id) {
 
 async function handleStartDomain(event, id) {
   try {
+    var child = spawn("node", ["src/domain.js"], { stdio: ['inherit', 'inherit', 'inherit', 'ipc'] });
+    // Handle events from the child process
+    child.on('close', (code) => {
+      console.log(`mDNS child process exited with code ${code}`);
+    });
 
+    child.on('error', (err) => {
+      console.error(`mDNS child process error: ${err.message}`);
+    });
   } catch (error) {
     console.log(error)
   }
@@ -95,6 +104,7 @@ app.on('ready', async () => {
   ipcMain.on('createDomain', handleCreateDomain)
   ipcMain.handle('getDomains', handleGetDomains)
   ipcMain.on('deleteDomain', handleDeleteDomain)
+  ipcMain.on('startDomain', handleStartDomain)
   createWindow()
 });
 
