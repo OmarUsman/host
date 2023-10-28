@@ -30,10 +30,11 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
-    height: 600,
+    height: 400,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    resizable: false,
   });
 
   // and load the index.html of the app.

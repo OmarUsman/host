@@ -7,6 +7,8 @@ A tool for web developers
 -   ability to actually listen for mDNS queries and respond 💀
 -   ~~upgrade UI colors - custom bootstrap build~~ ✅
 -   ~~better icons~~ ✅
+-   custom topbar
+-   custom scrollbar
 -   lock window size
 -   confirm delete domain
 -   better looking empty state
