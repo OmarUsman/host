@@ -80,3 +80,11 @@ body {
     border-radius: 50%;
     display: inline-block;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #232627;
+}

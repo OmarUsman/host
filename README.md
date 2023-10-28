@@ -8,7 +8,7 @@ A tool for web developers
 -   ~~upgrade UI colors - custom bootstrap build~~ ✅
 -   ~~better icons~~ ✅
 -   custom topbar
--   custom scrollbar
+-   ~~custom scrollbar~~ ✅
 -   lock window size
 -   confirm delete domain
 -   better looking empty state
