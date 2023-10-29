@@ -10,7 +10,9 @@ A tool for web developers
 -   ~~custom topbar~~ ✅
 -   ~~custom scrollbar~~ ✅
 -   ~~lock window size~~ ✅
--   confirm delete domain
+-   ~~confirm delete domain~~ ✅
+-   form validation
+-   stop creation of duplicate domains
 -   better looking empty state
 -   edit functionality
 -   stop domain functionality

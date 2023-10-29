@@ -7,18 +7,28 @@ const domains = ref([]);
 const name = ref("");
 const pointsTo = ref("");
 
+const deleteID = ref(0);
+let deleteModal;
+
 onMounted(async () => {
 	domains.value = await window.api.getDomains();
+	deleteModal = new bootstrap.Modal(document.getElementById("deleteDomainModal"));
 });
 
 async function handleCreateDomain() {
 	window.api.createDomain(name.value, pointsTo.value);
+
+	pointsTo.value = "";
+	name.value = "";
+
 	domains.value = await window.api.getDomains();
 }
 
-async function handleDeleteDomain(id) {
-	window.api.deleteDomain(id);
+async function handleDeleteDomain() {
+	window.api.deleteDomain(deleteID.value);
 	domains.value = await window.api.getDomains();
+
+	deleteID.value = 0;
 }
 
 async function handleStartDomain(event, id) {
@@ -83,7 +93,13 @@ function minApp() {
 									<i class="iconoir-edit-pencil"></i>
 								</button> -->
 								<i class="btn iconoir-play fs-5 p-0 me-2" @click="handleStartDomain($event, domain.dataValues.id)"></i>
-								<i class="btn iconoir-bin fs-5 p-0 me-2" @click="handleDeleteDomain(domain.dataValues.id)"></i>
+								<i
+									class="btn iconoir-bin fs-5 p-0 me-2"
+									@click="
+										deleteID = domain.dataValues.id;
+										deleteModal.show();
+									"
+								></i>
 							</td>
 						</tr>
 					</tbody>
@@ -122,6 +138,28 @@ function minApp() {
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
 						<button type="button" class="btn btn-primary" @click="handleCreateDomain()" data-bs-dismiss="modal">Add</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" tabindex="-1" id="deleteDomainModal">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<form method="post" action="#">
+					<div class="modal-header">
+						<h5 class="modal-title">Delete Modal</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<div class="mb-3">
+							<p>Are you sure you want to delete this domain?</p>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" @click="handleDeleteDomain()" data-bs-dismiss="modal">Confirm</button>
 					</div>
 				</form>
 			</div>
