@@ -88,3 +88,16 @@ body {
 ::-webkit-scrollbar-thumb {
     background: #232627;
 }
+
+.drag-area {
+    -webkit-user-select: none;
+    -webkit-app-region: drag;
+
+    i {
+        -webkit-app-region: no-drag;
+    }
+}
+
+.top-bar {
+    background-color: #000000;
+}

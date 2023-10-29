@@ -1,8 +1,9 @@
+import { compileScript } from 'vue/compiler-sfc';
+
 const { app, BrowserWindow, ipcMain } = require('electron');
 const { Sequelize, DataTypes } = require('sequelize');
 const path = require('path');
 const { spawn } = require('child_process');
-
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -29,12 +30,14 @@ const Domain = dataBase.define('Domain', {
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 400,
+    width: 960,
+    height: 480,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
     resizable: false,
+    frame: false,
+    maximizable: false,
   });
 
   // and load the index.html of the app.
@@ -106,6 +109,10 @@ app.on('ready', async () => {
   ipcMain.handle('getDomains', handleGetDomains)
   ipcMain.on('deleteDomain', handleDeleteDomain)
   ipcMain.on('startDomain', handleStartDomain)
+  ipcMain.on("close-app", () => app.quit())
+  ipcMain.on("min-app", () => {
+    BrowserWindow.getFocusedWindow().minimize();
+  })
   createWindow()
 });
 
@@ -125,6 +132,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.

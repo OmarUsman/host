@@ -26,10 +26,34 @@ async function handleStartDomain(event, id) {
 	event.target.classList.toggle("iconoir-square");
 	window.api.startDomain(id);
 }
+
+function closeApp() {
+	window.api.closeApp();
+}
+
+function minApp() {
+	window.api.minApp();
+}
 </script>
 
 <template>
-	<div class="container p-5">
+	<div class="container-fluid pt-2 drag-area" id="top-bar">
+		<div class="row">
+			<div class="col-6">
+				<p class="m-0 p-0 fw-bold text-primary">HOST.</p>
+			</div>
+			<div class="col-6 text-end d-flex align-self-center justify-content-end">
+				<i class="btn iconoir-circle text-warning fs-6 p-0 me-2" @click="minApp()"></i>
+				<i class="btn iconoir-circle text-danger fs-6 p-0" @click="closeApp()"></i>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<hr class="m-0 p-0 mt-2" />
+			</div>
+		</div>
+	</div>
+	<div class="container p-4">
 		<div class="row">
 			<div class="col-6">
 				<h1 class="m-0 fw-bold">Domains</h1>
@@ -65,8 +89,8 @@ async function handleStartDomain(event, id) {
 					</tbody>
 				</table>
 				<div v-else-if="domains.length == 0" class="text-center">
-					<h1 class="pt-5">No Domains Found!</h1>
-					<button type="button" class="btn btn-lg btn-primary" data-bs-toggle="modal" data-bs-target="#addDomainModal">Add Domain</button>
+					<h2 class="pt-5">No Domains Found!</h2>
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDomainModal">Add Domain</button>
 				</div>
 				<div v-else class="d-flex justify-content-center align-items-center">
 					<div class="spinner-border text-primary" role="status">

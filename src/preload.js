@@ -5,4 +5,7 @@ contextBridge.exposeInMainWorld('api', {
     getDomains: () => ipcRenderer.invoke('getDomains'),
     deleteDomain: (id) => ipcRenderer.send('deleteDomain', id),
     startDomain: (id) => ipcRenderer.send('startDomain', id),
+
+    closeApp: () => ipcRenderer.send('close-app'),
+    minApp: () => ipcRenderer.send('min-app'),
 })
