@@ -9,17 +9,20 @@ const pointsTo = ref("");
 
 const deleteID = ref(0);
 let deleteModal;
-
+let createModal;
 onMounted(async () => {
 	domains.value = await window.api.getDomains();
 	deleteModal = new bootstrap.Modal(document.getElementById("deleteDomainModal"));
+	createModal = new bootstrap.Modal(document.getElementById("addDomainModal"));
 });
 
-async function handleCreateDomain() {
+async function handleCreateDomain(event) {
 	window.api.createDomain(name.value, pointsTo.value);
 
 	pointsTo.value = "";
 	name.value = "";
+
+	createModal.hide();
 
 	domains.value = await window.api.getDomains();
 }
@@ -120,7 +123,7 @@ function minApp() {
 	<div class="modal" tabindex="-1" id="addDomainModal">
 		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
-				<form method="post" action="#">
+				<form method="dialog" action="/" novalidate>
 					<div class="modal-header">
 						<h5 class="modal-title">Add Domain</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -128,16 +131,16 @@ function minApp() {
 					<div class="modal-body">
 						<div class="mb-3">
 							<label class="form-label">Domain Name</label>
-							<input v-model="name" type="text" class="form-control" name="domainName" placeholder="example.local" />
+							<input v-model="name" type="text" class="form-control" name="domainName" placeholder="example.local" required />
 						</div>
 						<div class="mb-3">
 							<label class="form-label">Points To</label>
-							<input v-model="pointsTo" type="text" class="form-control" name="domainPointsTo" placeholder="localhost:8000" />
+							<input v-model="pointsTo" type="text" class="form-control" name="domainPointsTo" placeholder="localhost:8000" required />
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-						<button type="button" class="btn btn-primary" @click="handleCreateDomain()" data-bs-dismiss="modal">Add</button>
+						<button type="submit" class="btn btn-primary" @click="handleCreateDomain($event)">Add</button>
 					</div>
 				</form>
 			</div>
